@@ -5,17 +5,19 @@ import { Request, Response } from "express";
 export class CreateUsuario {
     async handle(request: Request, response: Response) {
 
-        const { login, senha } = request.body;
+        const { usuario, senha, nome } = request.body;
         try {
 
-            const usuario = await prismaClient.usuario.create({
+            const Usuario = await prismaClient.usuario.create({
                 data: {
-                    login,
-                    senha
+                    usuario,
+                    senha,
+                    nome,
+                    
                 }
             })
 
-            return response.json(usuario);
+            return response.json(Usuario);
 
         } catch (error) {
             console.error(error);

@@ -10,19 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Atividade {
-  id    Int     @id @default(autoincrement())
-  nome  String
-  data  String
+  id   Int    @id @default(autoincrement())
+  nome String
+  data String
 
   @@map("atividades")
 }
 
 model Usuario {
-  id    Int     @id @default(autoincrement())
-  login  String
-  senha  String
+  id      Int    @id @default(autoincrement())
+  usuario String
+  senha   String
+  nome    String
 
   @@map("usuario")
 }
