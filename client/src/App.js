@@ -1,36 +1,21 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import PrivateRoute from '../src/route/PrivateRoute';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Atividade from './pages/atividades/atividades';
 import Home from './pages/home/Home';
-import Login from './pages/login/Login';
+import Login from './pages/login/login';
 import CadastroUsuario from './pages/cadastroUsuario/CadastroUsuario';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Router>
-      <Route exact path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-      <PrivateRoute
-        path="/home"
-        component={Home}
-        isLoggedIn={isLoggedIn}
-        redirectPath="/login"
-      />
-      <PrivateRoute
-        path="/atividades"
-        component={Atividade}
-        isLoggedIn={isLoggedIn}
-        redirectPath="/login"
-      />
-      <PrivateRoute
-        path="/cadastroUsuario"
-        component={CadastroUsuario}
-        isLoggedIn={isLoggedIn}
-        redirectPath="/login"
-      />
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/atividades" element={<Atividade />} />
+        <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

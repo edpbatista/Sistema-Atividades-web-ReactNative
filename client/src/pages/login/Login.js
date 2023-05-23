@@ -1,72 +1,79 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-const Login = ({ setIsLoggedIn }) => {
-  const [usuario, setUsuario] = useState('');
-  const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
+const Login = () => {
+  const [error, setError] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('http://localhost:4003/usuarios', {
-        usuario,
-        senha,
-      });
+  const validationSchema = Yup.object().shape({
+    usuario: Yup.string().required('Campo obrigatório'),
+    senha: Yup.string().required('Campo obrigatório'),
+  });
 
-      // Lógica de autenticação aqui
-      if (response.data.success) {
-        // Login bem-sucedido, atualiza o estado de autenticação
-        setIsLoggedIn(true);
-      } else {
-        // Exibir mensagem de erro
-        setErro(response.data.message);
+  const formik = useFormik({
+    initialValues: {
+      usuario: '',
+      senha: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.get('http://localhost:4003/usuarios', {
+          params: {
+            usuario: values.usuario,
+            senha: values.senha,
+          },
+        });
+
+        if (response.data.success) {
+          // Redirecionar para a página /home
+          console.log('Login bem-sucedido!');
+        } else {
+          setError('Usuário não encontrado ou senha inválida');
+        }
+      } catch (error) {
+        console.error(error);
+        setError('Ocorreu um erro durante o login');
       }
-    } catch (error) {
-      console.error(error);
-      // Exibir mensagem de erro genérico
-      setErro('Ocorreu um erro durante o login');
-    }
-  };
-
-  const handleChangeUsuario = (e) => {
-    setUsuario(e.target.value);
-  };
-
-  const handleChangeSenha = (e) => {
-    setSenha(e.target.value);
-  };
+    },
+  });
 
   return (
     <div>
       <h2>Tela de Login</h2>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div>
           <label htmlFor="usuario">Usuário:</label>
           <input
             type="text"
             id="usuario"
-            value={usuario}
-            onChange={handleChangeUsuario}
+            name="usuario"
+            value={formik.values.usuario}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.usuario && formik.errors.usuario && (
+            <p className="error-message">{formik.errors.usuario}</p>
+          )}
         </div>
         <div>
           <label htmlFor="senha">Senha:</label>
           <input
             type="password"
             id="senha"
-            value={senha}
-            onChange={handleChangeSenha}
+            name="senha"
+            value={formik.values.senha}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.senha && formik.errors.senha && (
+            <p className="error-message">{formik.errors.senha}</p>
+          )}
         </div>
-        {erro && <p className="error-message">{erro}</p>}
-        <button type="button" onClick={handleLogin}>
-          Entrar
-        </button>
+        {error && <p className="error-message">{error}</p>}
+        <button type="submit">Entrar</button>
       </form>
-      <p>
-        Se você ainda não possui uma conta,{' '}
-        <a href="/cadastroUsuario">clique aqui</a> para se cadastrar.
-      </p>
     </div>
   );
 };
