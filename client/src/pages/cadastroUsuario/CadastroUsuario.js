@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
 import './CadastroUsuario.css'
+
 const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
   const [usuario, setUsuario] = useState('');
