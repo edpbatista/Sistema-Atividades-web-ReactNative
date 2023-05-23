@@ -20,7 +20,7 @@ model Atividade {
 
 model Usuario {
   id      Int    @id @default(autoincrement())
-  usuario String
+  nomeDeUsuario  String  @unique
   senha   String
   nome    String
 

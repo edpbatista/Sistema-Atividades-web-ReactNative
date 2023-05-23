@@ -8,6 +8,7 @@ import { CreateUsuario } from "../src/controllers/usuarios/createUsuarioControll
 import { DeleteUsuario } from "../src/controllers/usuarios/DeleteUsuarioController";
 import { UpdateUsuario } from "../src/controllers/usuarios/UpdateUsuarioController";
 import { GetUsuarios } from "../src/controllers/usuarios/GetUsuarioController";
+import { LoginController } from "../src/controllers/usuarios/LoginController";
 
 const router = Router();
 
@@ -20,6 +21,7 @@ const createUsuario = new CreateUsuario();
 const deleteUsuario = new DeleteUsuario();
 const updateUsuario = new UpdateUsuario();
 const getUsuarios = new GetUsuarios();
+const loginController = new LoginController();
 
 router.post("/atividade", createAtividades.handle);
 router.delete("/atividade/:id", deleteAtividade.handle);
@@ -31,5 +33,6 @@ router.delete("/usuario/:id", deleteUsuario.handle);
 router.put("/usuario/:id", updateUsuario.handle);
 router.get("/usuarios", getUsuarios.handle);
 
+router.post("/login", loginController.handle);
 
 export { router };

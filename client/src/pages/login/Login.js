@@ -1,79 +1,100 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+const loginSchema = Yup.object().shape({
+  usuario: Yup.string().required('O campo usuário é obrigatório'),
+  senha: Yup.string().required('O campo senha é obrigatório'),
+});
+
 const Login = () => {
-  const [error, setError] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
 
-  const validationSchema = Yup.object().shape({
-    usuario: Yup.string().required('Campo obrigatório'),
-    senha: Yup.string().required('Campo obrigatório'),
-  });
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  const formik = useFormik({
-    initialValues: {
-      usuario: '',
-      senha: '',
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.get('http://localhost:4003/usuarios', {
-          params: {
-            usuario: values.usuario,
-            senha: values.senha,
-          },
-        });
+    try {
+      // Validar campos usando Yup
+      await loginSchema.validate({ usuario, senha }, { abortEarly: false });
 
-        if (response.data.success) {
-          // Redirecionar para a página /home
-          console.log('Login bem-sucedido!');
+      const response = await axios.post('http://localhost:4003/login', {
+        usuario,
+        senha,
+      });
+
+      if (response.status === 200) {
+        const { success } = response.data;
+        if (success) {
+          // Autenticação bem-sucedida, redirecionar para a página /home
+          window.location.href = '/home';
         } else {
-          setError('Usuário não encontrado ou senha inválida');
+          // Exibir mensagem de erro
+          const { message } = response.data;
+          setErro(message);
         }
-      } catch (error) {
-        console.error(error);
-        setError('Ocorreu um erro durante o login');
+      } else {
+        // Exibir mensagem de erro genérica
+        setErro('Ocorreu um erro durante o login');
       }
-    },
-  });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        // Erros de validação do Yup
+        const validationErrors = {};
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+        setErro(validationErrors);
+      } else {
+        // Erro genérico
+        console.error(error);
+        setErro('Ocorreu um erro durante o login');
+      }
+    }
+  };
+
+  const handleChangeUsuario = (e) => {
+    setUsuario(e.target.value);
+  };
+
+  const handleChangeSenha = (e) => {
+    setSenha(e.target.value);
+  };
 
   return (
     <div>
       <h2>Tela de Login</h2>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={handleLogin}>
         <div>
           <label htmlFor="usuario">Usuário:</label>
           <input
             type="text"
             id="usuario"
-            name="usuario"
-            value={formik.values.usuario}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={usuario}
+            onChange={handleChangeUsuario}
           />
-          {formik.touched.usuario && formik.errors.usuario && (
-            <p className="error-message">{formik.errors.usuario}</p>
-          )}
+          {erro.usuario && <p className="error-message">{erro.usuario}</p>}
         </div>
         <div>
           <label htmlFor="senha">Senha:</label>
           <input
             type="password"
             id="senha"
-            name="senha"
-            value={formik.values.senha}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            value={senha}
+            onChange={handleChangeSenha}
           />
-          {formik.touched.senha && formik.errors.senha && (
-            <p className="error-message">{formik.errors.senha}</p>
-          )}
+          {erro.senha && <p className="error-message">{erro.senha}</p>}
         </div>
-        {error && <p className="error-message">{error}</p>}
+        {erro && !erro.usuario && !erro.senha && (
+          <p className="error-message">{erro}</p>
+        )}
         <button type="submit">Entrar</button>
       </form>
+      <p>
+        Se você ainda não possui uma conta,{' '}
+        <a href="/cadastroUsuario">clique aqui</a> para se cadastrar.
+      </p>
     </div>
   );
 };
