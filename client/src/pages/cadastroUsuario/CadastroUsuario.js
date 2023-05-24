@@ -44,6 +44,7 @@ const CadastroUsuario = () => {
       setNome('');
       setNomeDeUsuario('');
       setSenha('');
+      
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const validationErrors = {};

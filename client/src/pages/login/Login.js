@@ -37,7 +37,7 @@ const Login = () => {
         }
       } else {
         // Exibir mensagem de erro genérica
-        setErro('Ocorreu um erro durante o login');
+        setErro('Senha ou usuario invalido');
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
