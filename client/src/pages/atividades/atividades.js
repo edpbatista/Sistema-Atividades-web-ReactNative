@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import "./Atividade.css";
 
 function CreateAtividade() {
   const [nome, setNome] = useState('');
   const [data, setData] = useState('');
+
+  const handleVoltar = () => {
+    navigate('/home'); // Redireciona para a página inicial
+  };
+
+  const navigate  = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +35,7 @@ function CreateAtividade() {
   };
 
   return (
-    <div>
+    <div className='CreateAtividade'>
     <h2>Criar Atividade</h2>
     <form onSubmit={handleSubmit}>
       <div>
@@ -47,6 +55,10 @@ function CreateAtividade() {
         />
       </div>
       <button type="submit">Criar</button>
+      <br></br>
+        <button type="button" onClick={handleVoltar}>
+          Voltar
+        </button>
     </form>
   </div>
   );

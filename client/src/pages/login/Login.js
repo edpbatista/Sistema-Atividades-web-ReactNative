@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
+import "./Login.css"
 
 const loginSchema = Yup.object().shape({
   usuario: Yup.string().required('O campo usuário é obrigatório'),
@@ -63,7 +64,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='login'>
       <h2>Tela de Login</h2>
       <form onSubmit={handleLogin}>
         <div>

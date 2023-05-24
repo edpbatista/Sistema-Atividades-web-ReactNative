@@ -1,57 +1,67 @@
-.container {
-    width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  h2 {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  label {
-    margin-bottom: 5px;
-    font-size: 16px;
-    padding: 5px;
-  }
-  
-  input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #3366ff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0039b3;
-  }
-  
-  span {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-    padding: 10px;
-  }
-  
+.CadastroUsuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.CadastroUsuario h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.CadastroUsuario form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CadastroUsuario label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.CadastroUsuario input {
+  width: 300px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.CadastroUsuario span {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.CadastroUsuario button {
+  width: 300px;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.CadastroUsuario button:hover {
+  background-color: #555;
+}
+
+.CadastroUsuario .success-message {
+  color: green;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.CadastroUsuario .error-message {
+  color: red;
+  font-size: 16px;
+  margin-top: 16px;
+}
