@@ -5,24 +5,24 @@ import './CadastroUsuario.css'
 
 const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
-  const [usuario, setUsuario] = useState('');
+  const [nomeDeUsuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [errors, setErrors] = useState({});
 
   const schema = Yup.object().shape({
     nome: Yup.string().required('O nome é obrigatório'),
-    usuario: Yup.string().required('O usuário é obrigatório'),
+    nomeDeUsuario: Yup.string().required('O usuário é obrigatório'),
     senha: Yup.string().required('A senha é obrigatória'),
   });
 
   const handleCadastro = async () => {
     try {
-      await schema.validate({ nome, usuario, senha }, { abortEarly: false });
+      await schema.validate({ nome, nomeDeUsuario, senha }, { abortEarly: false });
 
       // Se a validação for bem-sucedida, continuar com o cadastro
       const response = await axios.post('http://localhost:4003/usuario', {
         nome,
-        usuario,
+        nomeDeUsuario,
         senha,
       });
 
@@ -61,10 +61,10 @@ const CadastroUsuario = () => {
           <input
             type="text"
             id="usuario"
-            value={usuario}
+            value={nomeDeUsuario}
             onChange={(e) => setUsuario(e.target.value)}
           />
-          {errors.usuario && <span>{errors.usuario}</span>}
+          {errors.nomeDeUsuario && <span>{errors.nomeDeUsuario}</span>}
         </div>
         <div>
           <label htmlFor="senha">Senha:</label>

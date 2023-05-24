@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "eslint": "^8.41.0",
-    "eslint-plugin-react": "^7.32.2"
+    "eslint-plugin-react": "^7.32.2",
+    "webpack": "^5.83.1"
   }
 }
