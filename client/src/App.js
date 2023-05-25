@@ -5,6 +5,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import CadastroUsuario from './pages/cadastroUsuario/CadastroUsuario';
 import ListarAtividades from './pages/ListaAtividades/ListaAtividades';
+import ListarUsuarios from './pages/ListaUsuarios/ListaUsuarios';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/atividades" element={<Atividade />} />
       <Route path="/listarAtividade" element={<ListarAtividades />} />
+      <Route path="/listarUsuario" element={<ListarUsuarios />} />
     </Routes>
   );
 };

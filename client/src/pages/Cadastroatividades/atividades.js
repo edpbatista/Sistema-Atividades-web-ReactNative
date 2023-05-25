@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import "./Atividade.css";
+import 'react-datepicker/dist/react-datepicker.css';
+import './Atividade.css';
 
 function CreateAtividade() {
   const [nome, setNome] = useState('');
-  const [data, setData] = useState('');
+  const [data, setData] = useState(null);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -19,18 +20,20 @@ function CreateAtividade() {
 
   const schema = Yup.object().shape({
     nome: Yup.string().required('O nome da atividade é obrigatório'),
-    data: Yup.string().required('A data da atividade é obrigatória'),
+    data: Yup.date().required('A data da atividade é obrigatória'),
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       await schema.validate({ nome, data }, { abortEarly: false });
   
+      const formattedData = data.toISOString().split('T')[0]; // Formata a data para ISO 8601
+  
       const response = await axios.post('http://localhost:4003/atividade', {
         nome,
-        data,
+        data: formattedData, // Envia somente a data formatada
       });
   
       console.log(response.data);
@@ -38,7 +41,7 @@ function CreateAtividade() {
       setErrorMessage('');
   
       setNome('');
-      setData('');
+      setData(null);
   
       setErrors({}); // Limpar os erros
     } catch (error) {
@@ -57,7 +60,6 @@ function CreateAtividade() {
       }
     }
   };
-  
 
   return (
     <div className='CreateAtividade'>
@@ -66,35 +68,37 @@ function CreateAtividade() {
         <div>
           <label>Nome:</label>
           <input
-            type="text"
+            type='text'
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
         </div>
         <div>
-          {errors.nome && <span className="input-error">{errors.nome}</span>}
+          {errors.nome && <span className='input-error'>{errors.nome}</span>}
         </div>
         <div>
           <label>Data:</label>
           <input
-            type="text"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
+            type='date'
+            value={data ? data.toISOString().split('T')[0] : ''}
+            onChange={(e) => setData(new Date(e.target.value))}
           />
         </div>
         <div>
-          {errors.data && <span className="input-error">{errors.data}</span>}
+          {errors.data && <span className='input-error'>{errors.data}</span>}
         </div>
-        {successMessage && <div className="success-message">{successMessage}</div>}
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
-        <button type="submit">Criar</button>
+        {successMessage && <div className='success-message'>{successMessage}</div>}
+        {errorMessage && <div className='error-message'>{errorMessage}</div>}
+        <button type='submit'>Criar</button>
         <br></br>
-        <button type="button" onClick={handleVoltar}>
+        <button type='button' onClick={handleVoltar}>
           Voltar
         </button>
       </form>
     </div>
   );
+  
+  
 }
 
 export default CreateAtividade;
