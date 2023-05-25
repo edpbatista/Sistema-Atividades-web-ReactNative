@@ -32,10 +32,10 @@ const Login = ({ setAuthenticated }) => {
       if (response.status === 200) {
         const { success } = response.data;
         if (success) {
-
           setErro('');
           setAuthenticated(true); // Definir autenticação como verdadeira
           navigate('/home'); // Redirecionar para a rota "/home"
+          
         } else {
           // Exibir mensagem de erro
           const { message } = response.data;
@@ -99,8 +99,7 @@ const Login = ({ setAuthenticated }) => {
         <button type="submit">Entrar</button>
       </form>
       <p>
-        Se você ainda não possui uma conta,{' '}
-        <a href="/cadastroUsuario">clique aqui</a> para se cadastrar.
+        Se você ainda não possui uma conta, Contate o administrador.
       </p>
     </div>
   );

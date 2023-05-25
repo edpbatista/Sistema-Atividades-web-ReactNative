@@ -11,7 +11,10 @@ const Home = () => {
         </div>
         <ul>
           <li>
-            <Link to="/atividades">Atividade</Link>
+            <Link to="/atividades">Cadastro de Atividade</Link>
+          </li>
+          <li>
+            <Link to="/listarAtividade">Lista Atividade</Link>
           </li>
           <li>
             <Link to="/cadastroUsuario">Cadastrar Usuário</Link>
