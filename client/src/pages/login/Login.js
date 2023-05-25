@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
 import "./Login.css"
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 const loginSchema = Yup.object().shape({
   usuario: Yup.string().required('O campo usuário é obrigatório'),
   senha: Yup.string().required('O campo senha é obrigatório'),
 });
 
-const Login = () => {
+const Login = ({ setAuthenticated }) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,8 +32,10 @@ const Login = () => {
       if (response.status === 200) {
         const { success } = response.data;
         if (success) {
-          // Autenticação bem-sucedida, redirecionar para a página /home
-          window.location.href = '/home';
+
+          setErro('');
+          setAuthenticated(true); // Definir autenticação como verdadeira
+          navigate('/home'); // Redirecionar para a rota "/home"
         } else {
           // Exibir mensagem de erro
           const { message } = response.data;
@@ -37,7 +43,7 @@ const Login = () => {
         }
       } else {
         // Exibir mensagem de erro genérica
-        setErro('Senha ou usuario invalido');
+        setErro('Senha ou usuário inválido');
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -98,6 +104,10 @@ const Login = () => {
       </p>
     </div>
   );
+};
+
+Login.propTypes = {
+  setAuthenticated: PropTypes.func.isRequired,
 };
 
 export default Login;

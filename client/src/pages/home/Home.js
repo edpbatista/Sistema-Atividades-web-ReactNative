@@ -1,23 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
-
   return (
     <div className="containerHome">
       <div className="menu">
         <div className="logo">
-          <a href="/">Sistema de atividades</a>
+          <Link to="/">Sistema de atividades</Link>
         </div>
         <ul>
           <li>
-            <a href="/atividades">Atividade</a>
+            <Link to="/atividades">Atividade</Link>
           </li>
           <li>
-            <a href="/cadastroUsuario">Cadastrar Usuário</a>
+            <Link to="/cadastroUsuario">Cadastrar Usuário</Link>
           </li>
           <li>
-            <a href="/">Sair</a>
+            <Link to="/">Sair</Link>
           </li>
         </ul>
       </div>
