@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
-import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import './Login.css';
 
 const loginSchema = Yup.object().shape({
   usuario: Yup.string().required('O campo usuário é obrigatório'),
@@ -26,7 +26,7 @@ const Login = ({ setAuthenticated }) => {
 
       const response = await axios.post('http://localhost:4003/login', {
         usuario,
-        senha,
+        senha 
       });
 
       if (response.status === 200) {
@@ -35,7 +35,7 @@ const Login = ({ setAuthenticated }) => {
           setErro('');
           setAuthenticated(true); // Definir autenticação como verdadeira
           navigate('/home'); // Redirecionar para a rota "/home"
-          
+          console.log(response)
         } else {
           // Exibir mensagem de erro
           const { message } = response.data;
@@ -70,7 +70,7 @@ const Login = ({ setAuthenticated }) => {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <h2>Tela de Login</h2>
       <form onSubmit={handleLogin}>
         <div>
@@ -99,7 +99,7 @@ const Login = ({ setAuthenticated }) => {
         <button type="submit">Entrar</button>
       </form>
       <p>
-        Se você ainda não possui uma conta, Contate o administrador.
+        Se você ainda não possui uma conta, contate o administrador.
       </p>
     </div>
   );
