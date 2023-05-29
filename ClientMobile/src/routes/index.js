@@ -4,7 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react'
 import HomeScreen from '../pages/home';
 import Login from '../pages/login';
-import CreateAtividade from '../pages/activity';
+import CreateAtividade from '../pages/cadastroAtividade';
+import CadastroUsuario from '../pages/cadastroUsuario';
+import ListarAtividades from '../pages/ListarAtividades ';
+import ListarUsuarios from '../pages/listarUsuario';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,6 +37,9 @@ export default function Routes() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="HomeScreen" component={TabScreens} />
         <Stack.Screen name="CreateAtividade" component={CreateAtividade} />
+        <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
+        <Stack.Screen name="ListarAtividades" component={ListarAtividades} />
+        <Stack.Screen name="ListarUsuarios" component={ListarUsuarios} />
       </Stack.Navigator>
     </NavigationContainer>
   )

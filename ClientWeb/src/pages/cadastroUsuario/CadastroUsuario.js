@@ -3,7 +3,6 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import './CadastroUsuario.css';
 import { useNavigate } from 'react-router-dom';
-import bcrypt from 'bcryptjs';
 
 const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
@@ -31,15 +30,10 @@ const CadastroUsuario = () => {
 
       // Se a validação for bem-sucedida, continuar com o cadastro
 
-      // Criptografa a senha
-      const hashedSenha = await bcrypt.hash(senha, 10); // 10 é o número de salt rounds
-      console.log('Senha criptografada:', hashedSenha); 
-
-
       const response = await axios.post('http://localhost:4003/usuario', {
         nome,
         nomeDeUsuario,
-        senha: hashedSenha, // Envia a senha criptografada para o backend
+        senha, 
       });
 
       console.log(response.data);

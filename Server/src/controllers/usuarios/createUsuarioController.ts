@@ -1,14 +1,18 @@
 import { prismaClient } from "../../dataBase/prismaClients";
 import { Request, Response } from "express";
+import bcrypt from 'bcryptjs';
 
 export class CreateUsuario {
   async handle(request: Request, response: Response) {
     const { nomeDeUsuario, senha, nome } = request.body;
     try {
+      // Criptografa a senha
+      const hashedSenha = await bcrypt.hash(senha, 10); // 10 é o número de salt rounds
+
       const usuario = await prismaClient.usuario.create({
         data: {
-          nomeDeUsuario: nomeDeUsuario, // Atribuir o valor de nomeDeUsuario corretamente
-          senha: senha,
+          nomeDeUsuario: nomeDeUsuario,
+          senha: hashedSenha, // Armazena a senha criptografada no banco de dados
           nome: nome
         }
       });

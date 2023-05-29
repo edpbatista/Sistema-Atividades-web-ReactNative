@@ -29,6 +29,8 @@ const Login = ({ setAuthenticated }) => {
         senha 
       });
 
+      console.log(response)
+
       if (response.status === 200) {
         const { success } = response.data;
         if (success) {

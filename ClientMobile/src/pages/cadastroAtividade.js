@@ -7,7 +7,6 @@ export default function CreateAtividade() {
   const [data, setData] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
   const navigation = useNavigation();
 
   const handleSuccess = (message) => {
@@ -47,6 +46,11 @@ export default function CreateAtividade() {
     }
   };
 
+  const handleVoltar = () => {
+    navigation.navigate('Home'); // Navega de volta para a tela inicial
+  };
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Criar Atividade</Text>
@@ -73,7 +77,7 @@ export default function CreateAtividade() {
         {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
         <Button style={styles.button} title="Criar" onPress={handleSubmit} />
         <br></br>
-        <Button style={styles.button} title="Voltar" onPress={() => navigation.navigate('HomeScreen')} />
+        <Button title="Voltar" onPress={handleVoltar} />
       </View>
     </View>
   );
@@ -132,5 +136,47 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
     marginTop: 16,
+  },
+  /* Estilos adicionados */
+  '@media (min-width: 768px)': {
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+    },
+    title: {
+      fontSize: 24,
+      marginBottom: 20,
+    },
+    input: {
+      width: 300,
+      padding: 10,
+      borderWidth: 0,
+      borderRadius: 4,
+      backgroundColor: '#F5F5F5',
+      marginBottom: 16,
+      fontSize: 14,
+    },
+    button: {
+      width: 300,
+      padding: 12,
+      borderRadius: 4,
+      backgroundColor: '#222',
+      color: '#fff',
+      fontSize: 16,
+      marginTop: 16,
+    },
+    successMessage: {
+      color: 'green',
+      fontSize: 16,
+      marginTop: 16,
+    },
+    errorMessage: {
+      color: 'red',
+      fontSize: 16,
+      marginTop: 16,
+    },
   },
 });
