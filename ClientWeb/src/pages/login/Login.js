@@ -34,8 +34,9 @@ const Login = ({ setAuthenticated }) => {
         if (success) {
           setErro('');
           setAuthenticated(true); // Definir autenticação como verdadeira
+          alert("Login Bem Suscedido")
           navigate('/home'); // Redirecionar para a rota "/home"
-          console.log(response)
+
         } else {
           // Exibir mensagem de erro
           const { message } = response.data;
