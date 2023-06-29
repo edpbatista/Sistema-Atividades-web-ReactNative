@@ -26,3 +26,23 @@ model Usuario {
 
   @@map("usuario")
 }
+
+model Categoria {
+  id     Int      @id @default(autoincrement())
+  nome   String
+  descricao String
+  produtos Produto[]
+
+  @@map("categorias")
+}
+
+model Produto {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  descricao   String
+  preco       Float
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+
+  @@map("produtos")
+}

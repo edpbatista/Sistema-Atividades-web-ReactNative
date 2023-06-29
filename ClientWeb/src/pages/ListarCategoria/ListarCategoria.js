@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './ListaAtividades.css';
+import './ListarCategoria.css';
 
-const ListarAtividades = () => {
-  const [atividades, setAtividades] = useState([]);
+const ListarCategorias = () => {
+  const [categorias, setCategorias] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
-    fetchAtividades();
+    fetchCategorias();
   }, []);
 
-  const fetchAtividades = async () => {
+  const fetchCategorias = async () => {
     try {
-      const response = await axios.get('http://localhost:4003/atividade');
-      setAtividades(response.data);
+      const response = await axios.get('http://localhost:4003/categorias');
+      setCategorias(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleVoltar = () => {
-    navigate('/atividades'); 
+    navigate('/CadastroCategoria');
   };
 
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4003/atividade/${id}`);
-      fetchAtividades();
+      await axios.delete(`http://localhost:4003/categoria/${id}`);
+      fetchCategorias();
     } catch (error) {
       console.error(error);
     }
@@ -37,17 +37,17 @@ const ListarAtividades = () => {
 
   const handleInputChange = (e, id) => {
     const { name, value } = e.target;
-    setAtividades((prevState) =>
-      prevState.map((atividade) =>
-        atividade.id === id ? { ...atividade, [name]: value } : atividade
+    setCategorias((prevState) =>
+      prevState.map((categoria) =>
+        categoria.id === id ? { ...categoria, [name]: value } : categoria
       )
     );
   };
 
   const handleSalvar = async (id) => {
     try {
-      const atividade = atividades.find((atividade) => atividade.id === id);
-      await axios.put(`http://localhost:4003/atividade/${id}`, atividade);
+      const categoria = categorias.find((categoria) => categoria.id === id);
+      await axios.put(`http://localhost:4003/categoria/${id}`, categoria);
       setEditingId(null);
     } catch (error) {
       console.error(error);
@@ -64,46 +64,46 @@ const ListarAtividades = () => {
 
   return (
     <div className="container-lista">
-      <h1>Lista de Atividades</h1>
+      <h1>Lista de Categorias</h1>
       <table className="table">
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Data</th>
+            <th>Descrição</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {atividades.map((atividade) => (
-            <tr key={atividade.id}>
+          {categorias.map((categoria) => (
+            <tr key={categoria.id}>
               <td>
-                {editingId === atividade.id ? (
+                {editingId === categoria.id ? (
                   <input
                     type="text"
                     name="nome"
-                    value={atividade.nome}
-                    onChange={(e) => handleInputChange(e, atividade.id)}
+                    value={categoria.nome}
+                    onChange={(e) => handleInputChange(e, categoria.id)}
                   />
                 ) : (
-                  atividade.nome
+                  categoria.nome
                 )}
               </td>
               <td>
-                {editingId === atividade.id ? (
+                {editingId === categoria.id ? (
                   <input
                     type="text"
-                    name="data"
-                    value={atividade.data}
-                    onChange={(e) => handleInputChange(e, atividade.id)}
+                    name="descricao"
+                    value={categoria.descricao}
+                    onChange={(e) => handleInputChange(e, categoria.id)}
                   />
                 ) : (
-                  atividade.data
+                  categoria.descricao
                 )}
               </td>
               <td>
-                {editingId === atividade.id ? (
+                {editingId === categoria.id ? (
                   <React.Fragment>
-                    <button className="button" onClick={() => handleSalvar(atividade.id)}>
+                    <button className="button" onClick={() => handleSalvar(categoria.id)}>
                       Salvar
                     </button>
                     <button className="button button-space" onClick={() => handleCancelarEdicao()}>
@@ -112,10 +112,10 @@ const ListarAtividades = () => {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <button className="button" onClick={() => handleEditar(atividade.id)}>
+                    <button className="button" onClick={() => handleEditar(categoria.id)}>
                       Alterar
                     </button>
-                    <button className="button button-space" onClick={() => handleDelete(atividade.id)}>
+                    <button className="button button-space" onClick={() => handleDelete(categoria.id)}>
                       Deletar
                     </button>
                   </React.Fragment>
@@ -126,12 +126,12 @@ const ListarAtividades = () => {
         </tbody>
       </table>
       <div>
-      <button type="button" className="buttonVoltar" onClick={handleVoltar}>
-        Voltar
-      </button>
+        <button type="button" className="buttonVoltar" onClick={handleVoltar}>
+          Voltar
+        </button>
       </div>
     </div>
   );
 };
 
-export default ListarAtividades;
+export default ListarCategorias;

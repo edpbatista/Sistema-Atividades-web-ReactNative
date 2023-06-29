@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import  {useNavigatiom} from '@react-navigation/native'
 
 const ListarUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchUsuarios();
@@ -102,11 +104,11 @@ const ListarUsuarios = () => {
             <View style={styles.tableCell}>
               {editingId === usuario.id ? (
                 <React.Fragment>
-                  <TouchableOpacity style={styles.button} onPress={() => handleSalvar(usuario.id)}>
+                  <TouchableOpacity style={styles.buttonSalvar} onPress={() => handleSalvar(usuario.id)}>
                     <Text style={styles.buttonText}>Salvar</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.button, styles.buttonSpace]}
+                    style={[styles.buttonCancelar, styles.buttonSpace]}
                     onPress={handleCancelarEdicao}
                   >
                     <Text style={styles.buttonText}>Cancelar</Text>
@@ -114,11 +116,11 @@ const ListarUsuarios = () => {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <TouchableOpacity style={styles.button} onPress={() => handleEditar(usuario.id)}>
+                  <TouchableOpacity style={styles.buttonEditar} onPress={() => handleEditar(usuario.id)}>
                     <Text style={styles.buttonText}>Alterar</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.button, styles.buttonSpace]}
+                    style={[styles.buttonDeletar, styles.buttonSpace]}
                     onPress={() => handleDelete(usuario.id)}
                   >
                     <Text style={styles.buttonText}>Deletar</Text>
@@ -142,14 +144,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#F4F4F4',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   table: {
     flex: 1,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    padding: 10,
   },
   tableRow: {
     flexDirection: 'row',
@@ -159,6 +166,7 @@ const styles = StyleSheet.create({
   tableHeader: {
     fontWeight: 'bold',
     flex: 1,
+    textAlign: 'center',
   },
   tableCell: {
     flex: 1,
@@ -168,21 +176,41 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     padding: 5,
     marginBottom: 5,
-  },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 10,
     borderRadius: 5,
   },
-  buttonSpace: {
-    marginLeft: 10,
+  text: {
+    textAlign: 'center',
+  },
+  buttonSalvar: {
+    backgroundColor: '#3CB371',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonCancelar: {
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonEditar: {
+    backgroundColor: '#4169E1',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonDeletar: {
+    backgroundColor: '#FF4500',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
   },
   buttonVoltar: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#222',
     padding: 10,
     borderRadius: 5,
     marginTop: 20,

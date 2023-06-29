@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
-import './CadastroUsuario.css';
+import './CadastroCategoria.css';
 import { useNavigate } from 'react-router-dom';
 
-const CadastroUsuario = () => {
+const CadastroCategoria = () => {
   const [nome, setNome] = useState('');
-  const [nomeDeUsuario, setNomeDeUsuario] = useState('');
-  const [senha, setSenha] = useState('');
+  const [descricao, setDescricao] = useState('');
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -15,40 +14,40 @@ const CadastroUsuario = () => {
   const navigate = useNavigate();
 
   const handleVoltar = () => {
-    navigate('/home'); 
+    navigate('/home');
   };
 
-  const handleListarUsuarios = () => {
-    navigate('/listarUsuario'); 
+  const handleListarCategorias = () => {
+    navigate('/listarCategoria');
   };
 
   const schema = Yup.object().shape({
-    nome: Yup.string().required('O nome é obrigatório'),
-    nomeDeUsuario: Yup.string().required('O usuário é obrigatório'),
-    senha: Yup.string().required('A senha é obrigatória'),
+    nome: Yup.string().required('O nome da categoria é obrigatório'),
+    descricao: Yup.string().required('A descrição da categoria é obrigatória'),
   });
 
   const handleCadastro = async () => {
     try {
-      await schema.validate({ nome, nomeDeUsuario, senha }, { abortEarly: false });
+      await schema.validate(
+        { nome, descricao },
+        { abortEarly: false }
+      );
 
       // Se a validação for bem-sucedida, continuar com o cadastro
 
-      const response = await axios.post('http://localhost:4003/usuario', {
+      const response = await axios.post('http://localhost:4003/categoria', {
         nome,
-        nomeDeUsuario,
-        senha, 
+        descricao,
       });
 
       console.log(response.data);
       // Exibir mensagem de sucesso
-      setSuccessMessage('Cadastro realizado com sucesso!');
+      setSuccessMessage('Categoria cadastrada com sucesso!');
       setErrorMessage('');
 
       // Limpar os campos após o cadastro bem-sucedido
       setNome('');
-      setNomeDeUsuario('');
-      setSenha('');
+      setDescricao('');
 
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -60,15 +59,15 @@ const CadastroUsuario = () => {
       } else {
         console.error(error);
         // Exibir mensagem de erro
-        setErrorMessage('Ocorreu um erro ao cadastrar. Por favor, tente novamente.');
+        setErrorMessage('Ocorreu um erro ao cadastrar a categoria. Por favor, tente novamente.');
         setSuccessMessage('');
       }
     }
   };
 
   return (
-    <div className="CadastroUsuario">
-      <h2>Cadastro de Usuário</h2>
+    <div className="CadastroCategoria">
+      <h2>Cadastro de Categoria</h2>
       <form>
         <div>
           <label htmlFor="nome">Nome:</label>
@@ -83,38 +82,26 @@ const CadastroUsuario = () => {
           {errors.nome && <span className="error">{errors.nome}</span>}
         </div>
         <div>
-          <label htmlFor="usuario">Usuário:</label>
+          <label htmlFor="descricao">Descrição:</label>
           <input
             type="text"
-            id="usuario"
-            value={nomeDeUsuario}
-            onChange={(e) => setNomeDeUsuario(e.target.value)}
+            id="descricao"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
           />
         </div>
         <div>
-          {errors.nomeDeUsuario && <span className="error">{errors.nomeDeUsuario}</span>}
-        </div>
-        <div>
-          <label htmlFor="senha">Senha:</label>
-          <input
-            type="password"
-            id="senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-        </div>
-        <div>
-          {errors.senha && <span className="error">{errors.senha}</span>}
+          {errors.descricao && <span className="error">{errors.descricao}</span>}
         </div>
         {successMessage && <div className="success-message">{successMessage}</div>}
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <br />
         <button type="button" onClick={handleCadastro}>
-          Cadastrar
+          Cadastrar Categoria
         </button>
         <br />
-        <button type="button" onClick={handleListarUsuarios}>
-          Listar Usuarios
+        <button type="button" onClick={handleListarCategorias}>
+          Listar Categorias
         </button>
         <br></br>
         <button type="button" onClick={handleVoltar}>
@@ -125,4 +112,4 @@ const CadastroUsuario = () => {
   );
 };
 
-export default CadastroUsuario;
+export default CadastroCategoria;

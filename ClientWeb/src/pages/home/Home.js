@@ -11,16 +11,16 @@ const Home = () => {
         </div>
         <ul>
         <li>
-            <Link to="/listarAtividade">Lista Atividade</Link>
+            <Link to="/CadastroProduto">Produto</Link>
+          </li>
+        <li>
+            <Link to="/CadastroCategoria">Categoria</Link>
           </li>
           <li>
-            <Link to="/listarUsuario">Lista Usuário</Link>
+            <Link to="/atividades">Atividade</Link>
           </li>
           <li>
-            <Link to="/atividades">Cadastro de Atividade</Link>
-          </li>
-          <li>
-            <Link to="/cadastroUsuario">Cadastrar Usuário</Link>
+            <Link to="/cadastroUsuario">Usuário</Link>
           </li>
           <li>
             <Link to="/">Sair</Link>
@@ -32,3 +32,4 @@ const Home = () => {
 };
 
 export default Home;
+

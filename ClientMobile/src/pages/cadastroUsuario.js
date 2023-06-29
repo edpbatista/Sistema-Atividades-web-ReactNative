@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+
 
 export default function CadastroUsuario() {
   const [nome, setNome] = useState('');
@@ -111,8 +113,13 @@ export default function CadastroUsuario() {
         </View>
         {successMessage && <Text style={styles.successMessage}>{successMessage}</Text>}
         {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
-        <Button title="Cadastrar" onPress={handleCadastro} />
-        <Button title="Voltar" onPress={handleVoltar} />
+        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
+        </TouchableOpacity>
+        <br></br>
+        <TouchableOpacity style={styles.button} onPress={handleVoltar}>
+          <Text style={styles.buttonText}>Voltar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -120,11 +127,11 @@ export default function CadastroUsuario() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#FFFFFF',
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100vh'
   },
   title: {
     fontSize: 24,
@@ -132,16 +139,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   form: {
-    alignItems: 'center',
-    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   inputContainer: {
-    marginBottom: 15,
-    width: '100%',
+    width: '300px',
+    padding: '10px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#f5f5f5f',
+    marginBottom: '16px',
+    fontSize: '14px'
   },
   errorContainer: {
+    color: 'red',
     marginBottom: 8,
-    width: '100%',
+    fontSize: '14px'
   },
   label: {
     fontSize: 16,
@@ -171,4 +185,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
   },
+  button: {
+    width: '300px',
+    padding: '12px',
+    borderRadius: 4,
+    backgroundColor: '#222',
+    marginBottom: '16px',
+    fontSize: '14px',
+  },
+  buttonText: {
+    color: '#f5f5f5',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  
 });

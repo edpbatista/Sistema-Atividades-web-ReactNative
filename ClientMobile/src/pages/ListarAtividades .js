@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const ListarAtividades = () => {
   const [atividades, setAtividades] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchAtividades();
@@ -20,7 +22,7 @@ const ListarAtividades = () => {
   };
 
   const handleVoltar = () => {
-   Navegation.navigate('HomeScreen'); // Redireciona para a página inicial
+    navigation.navigate('Home'); // Navega para a tela inicial (nome da tela pode variar)
   };
 
   const handleDelete = async (id) => {
@@ -85,7 +87,7 @@ const ListarAtividades = () => {
                   onChangeText={(value) => handleInputChange(value, atividade.id, 'nome')}
                 />
               ) : (
-                <Text>{atividade.nome}</Text>
+                <Text style={styles.text}>{atividade.nome}</Text>
               )}
             </View>
             <View style={styles.tableCell}>
@@ -96,17 +98,17 @@ const ListarAtividades = () => {
                   onChangeText={(value) => handleInputChange(value, atividade.id, 'data')}
                 />
               ) : (
-                <Text>{atividade.data}</Text>
+                <Text style={styles.text}>{atividade.data}</Text>
               )}
             </View>
             <View style={styles.tableCell}>
               {editingId === atividade.id ? (
                 <React.Fragment>
-                  <TouchableOpacity style={styles.button} onPress={() => handleSalvar(atividade.id)}>
+                  <TouchableOpacity style={styles.buttonSalvar} onPress={() => handleSalvar(atividade.id)}>
                     <Text style={styles.buttonText}>Salvar</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.button, styles.buttonSpace]}
+                    style={styles.buttonCancelar}
                     onPress={handleCancelarEdicao}
                   >
                     <Text style={styles.buttonText}>Cancelar</Text>
@@ -114,11 +116,11 @@ const ListarAtividades = () => {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <TouchableOpacity style={styles.button} onPress={() => handleEditar(atividade.id)}>
+                  <TouchableOpacity style={styles.buttonEditar} onPress={() => handleEditar(atividade.id)}>
                     <Text style={styles.buttonText}>Alterar</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.button, styles.buttonSpace]}
+                    style={styles.buttonDeletar}
                     onPress={() => handleDelete(atividade.id)}
                   >
                     <Text style={styles.buttonText}>Deletar</Text>
@@ -142,14 +144,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#F4F4F4',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   table: {
     flex: 1,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    padding: 10,
   },
   tableRow: {
     flexDirection: 'row',
@@ -159,6 +166,7 @@ const styles = StyleSheet.create({
   tableHeader: {
     fontWeight: 'bold',
     flex: 1,
+    textAlign: 'center',
   },
   tableCell: {
     flex: 1,
@@ -168,21 +176,41 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     padding: 5,
     marginBottom: 5,
-  },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 10,
     borderRadius: 5,
   },
-  buttonSpace: {
-    marginLeft: 10,
+  text: {
+    textAlign: 'center',
+  },
+  buttonSalvar: {
+    backgroundColor: '#3CB371',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonCancelar: {
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonEditar: {
+    backgroundColor: '#4169E1',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  buttonDeletar: {
+    backgroundColor: '#FF4500',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
   },
   buttonVoltar: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#222',
     padding: 10,
     borderRadius: 5,
     marginTop: 20,

@@ -21,7 +21,7 @@ const ListarUsuarios = () => {
   };
 
   const handleVoltar = () => {
-    navigate('/home'); // Redireciona para a página inicial
+    navigate('/cadastroUsuario'); // Redireciona para a página inicial
   };
 
   const navigate = useNavigate();

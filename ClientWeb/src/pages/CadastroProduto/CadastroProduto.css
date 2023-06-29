@@ -1,0 +1,84 @@
+.CadastroProduto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .CadastroProduto h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .CadastroProduto form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .CadastroProduto div {
+    margin-bottom: 15px;
+  }
+  
+  .CadastroProduto label {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .CadastroProduto input {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  
+  .CadastroProduto select {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  
+  .CadastroProduto button[type="submit"],
+  .CadastroProduto button[type="button"] {
+    width: 300px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #222;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  
+  .CadastroProduto button[type="submit"]:hover,
+  .CadastroProduto button[type="button"]:hover {
+    background-color: #555;
+  }
+  
+  .CadastroProduto span {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .CadastroProduto .success-message {
+    color: green;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  .CadastroProduto .error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  

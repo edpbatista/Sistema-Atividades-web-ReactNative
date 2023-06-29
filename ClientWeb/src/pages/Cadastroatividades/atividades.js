@@ -18,6 +18,10 @@ function CreateAtividade() {
     navigate('/home'); // Redireciona para a página inicial
   };
 
+  const handleListarAtividades = () => {
+    navigate('/listarAtividade'); // Redireciona para a página inicial
+  };
+
   const schema = Yup.object().shape({
     nome: Yup.string().required('O nome da atividade é obrigatório'),
     data: Yup.date().required('A data da atividade é obrigatória'),
@@ -90,6 +94,10 @@ function CreateAtividade() {
         {successMessage && <div className='success-message'>{successMessage}</div>}
         {errorMessage && <div className='error-message'>{errorMessage}</div>}
         <button type='submit'>Criar</button>
+        <br></br>
+        <button type='button' onClick={handleListarAtividades}>
+          Lista de atividades
+        </button>
         <br></br>
         <button type='button' onClick={handleVoltar}>
           Voltar
