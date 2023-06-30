@@ -58,15 +58,23 @@ const ListarProdutos = () => {
   const handleSalvar = async (id) => {
     try {
       const produto = produtos.find((produto) => produto.id === id);
-      const { nome, descricao, categoriaId } = produto;
+      const { nome, descricao, categoriaId, preco } = produto;
 
-      await axios.put(`http://localhost:4003/produto/${id}`, { nome, descricao, categoriaId });
+      await axios.put(`http://localhost:4003/produto/${id}`, {
+        nome,
+        descricao,
+        categoriaId,
+        preco: parseFloat(preco) // Converter a string em um número de ponto flutuante
+      });
+
       setEditingId(null);
       fetchProdutos();
     } catch (error) {
       console.error(error);
     }
   };
+
+
 
   const handleCancelarEdicao = () => {
     setEditingId(null);
@@ -75,6 +83,12 @@ const ListarProdutos = () => {
   const handleEditar = (id) => {
     setEditingId(id);
   };
+
+  useEffect(() => {
+    if (editingId !== null) {
+      fetchProdutos();
+    }
+  }, [editingId]);
 
   return (
     <div className="container-lista">
@@ -85,6 +99,7 @@ const ListarProdutos = () => {
             <th>Nome</th>
             <th>Descrição</th>
             <th>Categoria</th>
+            <th>Preço</th> {/* Adicionado aqui */}
             <th>Ações</th>
           </tr>
         </thead>
@@ -130,9 +145,23 @@ const ListarProdutos = () => {
                     ))}
                   </select>
                 ) : (
-                  produto.categoria
+                  categorias.find((categoria) => categoria.id === produto.categoriaId)?.nome
                 )}
               </td>
+              <td>
+                {editingId === produto.id ? (
+                  <input
+                    type="text"
+                    name="preco"
+                    value={produto.preco}
+                    onChange={(e) => handleInputChange(e, produto.id)}
+                    className="inputPreco"
+                  />
+                ) : (
+                  produto.preco
+                )}
+              </td>
+
               <td>
                 {editingId === produto.id ? (
                   <>
@@ -164,6 +193,7 @@ const ListarProdutos = () => {
         </button>
       </div>
     </div>
+
   );
 };
 

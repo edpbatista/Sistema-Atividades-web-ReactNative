@@ -12,6 +12,21 @@ export class LoginController {
       });
 
       if (!user) {
+        // Verifica se é o primeiro acesso e cria o usuário admin
+        if (usuario === 'admin' && senha === 'admin123') {
+          const hashedPassword = await bcrypt.hash(senha, 10);
+
+          await prismaClient.usuario.create({
+            data: {
+              nomeDeUsuario: usuario,
+              senha: hashedPassword,
+              nome: 'Admin',
+            },
+          });
+
+          return response.json({ success: true, message: 'Usuário admin criado com sucesso' });
+        }
+
         return response.status(404).json({ success: false, message: 'Usuário não encontrado' });
       }
 

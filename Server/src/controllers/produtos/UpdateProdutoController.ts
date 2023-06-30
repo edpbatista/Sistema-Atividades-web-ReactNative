@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 export class UpdateProduto {
   async handle(request: Request, response: Response) {
     const { id } = request.params;
-    const { nome, categoria, preco } = request.body;
+    const { nome, descricao, categoriaId, preco } = request.body;
 
     try {
       const produto = await prismaClient.produto.update({
@@ -13,10 +13,14 @@ export class UpdateProduto {
         },
         data: {
           nome,
-          categoria,
+          descricao,
+          categoria: {
+            connect: { id: categoriaId },
+          },
           preco,
         },
       });
+      
 
       return response.json(produto);
     } catch (error) {
