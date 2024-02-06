@@ -1,6 +1,6 @@
 # Sistema de Atividades
 
-Este é um projeto de sistema de atividades que consiste em um aplicativo web e mobile para gerenciamento de tarefas.
+Este é um projeto de sistema de atividades que consiste em um aplicativo web e mobile para gerenciamento de tarefas onde ambos é alimentapo pelo mesmo Server
 
 ## Pré-requisitos
 
